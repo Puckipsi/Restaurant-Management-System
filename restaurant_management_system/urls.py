@@ -17,6 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from .restaurant.views import RestaurantView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/restaurants/create/', RestaurantView.as_view(), name='create-restaurant'),
+    path('api/restaurants/<int:restaurant_id>/', RestaurantView.as_view(), name='get_restaurant'),
+
 ]
