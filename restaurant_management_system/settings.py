@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'restaurant_management_system.restaurant',
+    'restaurant_management_system.employee',
     
 ]
 

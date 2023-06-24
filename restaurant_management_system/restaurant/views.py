@@ -15,7 +15,7 @@ class RestaurantView(APIView):
         except Restaurant.DoesNotExist:
             return Response({"error": "Restaurant not found."}, status=status.HTTP_404_NOT_FOUND)
         
-    def create_restaurant(self, request):
+    def post(self, request, format=None):
         serializer = RestaurantSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

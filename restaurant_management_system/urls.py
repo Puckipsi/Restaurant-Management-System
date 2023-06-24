@@ -18,10 +18,15 @@ from django.contrib import admin
 from django.urls import path
 
 from .restaurant.views import RestaurantView
+from .employee.views import EmployeeView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/restaurants/create/', RestaurantView.as_view(), name='create-restaurant'),
     path('api/restaurants/<int:restaurant_id>/', RestaurantView.as_view(), name='get_restaurant'),
+    path('api/restaurants/<int:restaurant_id>/employees/', EmployeeView.as_view(), name='create_employee'),
+    path('api/restaurants/<int:restaurant_id>/employees/', EmployeeView.as_view(), name='get_restaurant_employees'),
+
 
 ]
