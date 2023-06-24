@@ -1,11 +1,13 @@
 from django.db.models import Count
+from rest_framework.decorators import authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
 from .serializers import MenuSerializer
 from .models import Vote
 
-
+@authentication_classes([JWTAuthentication])
 class MenuView(APIView):
     def post(self, request, restaurant_id):
         serializer = MenuSerializer(data=request.data)
@@ -15,7 +17,7 @@ class MenuView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
         
-
+@authentication_classes([JWTAuthentication])
 class VoteView(APIView):
     def post(self, request, employee_id):
         menu_id = request.data.get('menu_id')

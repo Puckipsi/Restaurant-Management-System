@@ -1,12 +1,15 @@
 from rest_framework import status
+from rest_framework.decorators import authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import EmployeeSerializer
 from .models import Employee
 
 
+@authentication_classes([JWTAuthentication])
 class EmployeeView(APIView):
-    
+
     def get(self, request, restaurant_id: int):
         employees = Employee.objects.filter(restaurant_id=restaurant_id)
         serializer = EmployeeSerializer(employees, many=True)

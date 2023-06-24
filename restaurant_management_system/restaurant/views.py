@@ -1,6 +1,8 @@
 from datetime import datetime, date
 from django.db.models import Q
 from rest_framework import status
+from rest_framework.decorators import authentication_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import RestaurantSerializer
@@ -9,6 +11,7 @@ from ..menu.models import Menu
 from ..menu.serializers import MenuSerializer
 
 
+@authentication_classes([JWTAuthentication])
 class RestaurantView(APIView):
     
     def get(self, request, restaurant_id: int):
@@ -18,7 +21,8 @@ class RestaurantView(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Restaurant.DoesNotExist:
             return Response({"error": "Restaurant not found."}, status=status.HTTP_404_NOT_FOUND)
-        
+    
+ 
     def get(self, request, restaurant_id: int):
         try:
             today_menus = []
@@ -30,7 +34,8 @@ class RestaurantView(APIView):
             return Response(today_menus, status=status.HTTP_200_OK)
         except Menu.DoesNotExist:
             return Response({"error": "Menu not found."}, status=status.HTTP_404_NOT_FOUND)
-        
+    
+
     def post(self, request, format=None):
         serializer = RestaurantSerializer(data=request.data)
         if serializer.is_valid():

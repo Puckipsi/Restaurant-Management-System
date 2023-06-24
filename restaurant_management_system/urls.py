@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from .restaurant.views import RestaurantView
 from .employee.views import EmployeeView
@@ -23,6 +24,10 @@ from .menu.views import MenuView, VoteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('api/token/', TokenObtainPairView.as_view(), name='token-obtain-pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token-refresh'), 
+    
     path('api/restaurants/create/', RestaurantView.as_view(), name='create-restaurant'),
     path('api/restaurants/<int:restaurant_id>/', RestaurantView.as_view(), name='get_restaurant'),
     path('api/restaurants/<int:restaurant_id>/menus/today/', RestaurantView.as_view(), name='get_today_menu'),
