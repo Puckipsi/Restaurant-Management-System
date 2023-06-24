@@ -19,14 +19,17 @@ from django.urls import path
 
 from .restaurant.views import RestaurantView
 from .employee.views import EmployeeView
-
+from .menu.views import MenuView, VoteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/restaurants/create/', RestaurantView.as_view(), name='create-restaurant'),
     path('api/restaurants/<int:restaurant_id>/', RestaurantView.as_view(), name='get_restaurant'),
+    path('api/restaurants/<int:restaurant_id>/menus/today/', RestaurantView.as_view(), name='get_today_menu'),
+    path('api/restaurants/<int:restaurant_id>/menus/', MenuView.as_view(), name='create_menu'),
     path('api/restaurants/<int:restaurant_id>/employees/', EmployeeView.as_view(), name='create_employee'),
     path('api/restaurants/<int:restaurant_id>/employees/', EmployeeView.as_view(), name='get_restaurant_employees'),
-
+    path('api/restaurants/employees/<int:employee_id>/menu/vote/', VoteView.as_view(), name='vote_for_menu'),
+    path('api/restaurants/<int:restaurant_id>/menus/voting-results/', VoteView.as_view(), name='voting-results'),
 
 ]

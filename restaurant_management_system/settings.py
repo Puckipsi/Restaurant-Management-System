@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'restaurant_management_system.restaurant',
     'restaurant_management_system.employee',
+    'restaurant_management_system.menu',
     
 ]
 
